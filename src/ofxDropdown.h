@@ -47,7 +47,7 @@ public:
     /// @param name the name of the dropdown.
     /// @param width = the width of the drawn element. Defaults to ofxGui's default
     /// @param height = the height of the drawn element. Defaults to twice of ofxGui's default. This is because one line is used to draw the dropdown name and the second for the selected value it has, if any.
-	ofxDropdown_(std::string name, float width = defaultWidth, float height = defaultHeight*2);
+	ofxDropdown_(std::string name, int scrollRate = 6, float width = defaultWidth, float height = defaultHeight*2);
     
     /// \brief constructor that calls setup function with same parameters
     /// Dropdown will be empty. You should add values with the add(...) function
@@ -55,7 +55,7 @@ public:
     /// The name of this dropdown is taken from the passed ofParameter's name
     /// @param width = the width of the drawn element. Defaults to ofxGui's default
     /// @param height = the height of the drawn element. Defaults to twice of ofxGui's default. This is because one line is used to draw the dropdown name and the second for the selected value it has, if any.
-    ofxDropdown_(ofParameter<T> param, float width = defaultWidth, float height = defaultHeight*2);
+    ofxDropdown_(ofParameter<T> param, int scrollRate = 6, float width = defaultWidth, float height = defaultHeight*2);
     
     /// \brief Construct and add elements
     /// @param param The passed ofParameter will be "linked" to the dropdown and will change as you select different elements from the dropdown
@@ -65,7 +65,7 @@ public:
     /// @param height = the height of the drawn element. Defaults to twice of ofxGui's default. This is because one line is used to draw the dropdown name and the second for the selected value it has, if any.
     /// This is useful when for instance you have an ofParameter<int> but you want to display different names for each value, rather than the value itself.
     /// You still can add more values with the add(...) function
-    ofxDropdown_(ofParameter<T> param, const map<T,string>& dropDownOptions, float width = defaultWidth, float height = defaultHeight*2);
+    ofxDropdown_(ofParameter<T> param, const map<T,string>& dropDownOptions, int scrollRate = 6, float width = defaultWidth, float height = defaultHeight*2);
     
     
     /// Construct and add elements
@@ -77,7 +77,7 @@ public:
     /// @param height = the height of the drawn element. Defaults to twice of ofxGui's default. This is because one line is used to draw the dropdown name and the second for the selected value it has, if any.
     /// This is useful when for instance you have an ofParameter<int> but you want to display different names for each value, rather than the value itself.
     /// You still can add more values with the add(...) function
-	ofxDropdown_(ofParameter<T> param, const std::vector<T> & dropDownOptions, float width = defaultWidth, float height = defaultHeight*2);
+	ofxDropdown_(ofParameter<T> param, const std::vector<T> & dropDownOptions, int scrollRate = 6, float width = defaultWidth, float height = defaultHeight*2);
 	
     
     //---- Setup function.
@@ -88,7 +88,7 @@ public:
     /// The name of this dropdown is taken from the passed ofParameter's name
     /// @param width = the width of the drawn element. Defaults to ofxGui's default
     /// @param height = the height of the drawn element. Defaults to twice of ofxGui's default. This is because one line is used to draw the dropdown name and the second for the selected value it has, if any.
-	ofxDropdown_ * setup(ofParameter<T> param, float width = defaultWidth, float height = defaultHeight*2);
+	ofxDropdown_ * setup(ofParameter<T> param, int scrollRate = 6, float width = defaultWidth, float height = defaultHeight*2);
 	
     /// \brief Setup this dropdonw
     /// \warning use only when you instanced this classs and used its default constructor.
@@ -96,7 +96,7 @@ public:
     /// @param width = the width of the drawn element. Defaults to ofxGui's default
     /// @param height = the height of the drawn element. Defaults to twice of ofxGui's default. This is because one line is used to draw the dropdown name and the second for the selected value it has, if any.
     /// Dropdown will be empty. you should add values with the add(...) function
-    ofxDropdown_ * setup(std::string name, float width = defaultWidth, float height = defaultHeight*2);
+    ofxDropdown_ * setup(std::string name, int scrollRate = 6, float width = defaultWidth, float height = defaultHeight*2);
 	
     
     // ---------------------------------------------------
@@ -612,7 +612,7 @@ private:
 	std::vector<unique_ptr<ofxDropdown_>> ownedDropdowns;
 	std::vector<unique_ptr<ofxDropdownOption>> ownedChildren;
 
-    int scrollSpeed = 16;
+    int scrollSpeed = 6;
 	    
     bool bRegisteredForMouseEvents = false;
     bool bIsSetup = false;
