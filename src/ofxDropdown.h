@@ -611,7 +611,9 @@ private:
 	std::vector<ofxDropdown_ *> childDropdowns;
 	std::vector<unique_ptr<ofxDropdown_>> ownedDropdowns;
 	std::vector<unique_ptr<ofxDropdownOption>> ownedChildren;
-    
+
+    int scrollSpeed = 16;
+	    
     bool bRegisteredForMouseEvents = false;
     bool bIsSetup = false;
     bool _bSelectOnMouseRelease = false;
