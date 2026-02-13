@@ -16,22 +16,22 @@ bool ofxDropdown_<T>::bShowOnOver = false;
 
 //--------------------------------------------------------------
 template<class T>
-ofxDropdown_<T>::ofxDropdown_(ofParameter<T> param, float width , float height){
-    setup(param,width,height);
+ofxDropdown_<T>::ofxDropdown_(ofParameter<T> param, int scrollRate, float width , float height){
+    setup(param,scrollRate,width,height);
 }
 template<class T>
-ofxDropdown_<T>::ofxDropdown_(ofParameter<T> param, const map<T,string>& dropDownOptions, float width , float height){
-    setup(param,width,height);
+ofxDropdown_<T>::ofxDropdown_(ofParameter<T> param, const map<T,string>& dropDownOptions, int scrollRate, float width , float height){
+    setup(param,scrollRate,width,height);
     add(dropDownOptions);
 }
 template<class T>
-ofxDropdown_<T>::ofxDropdown_(ofParameter<T> param, const std::vector<T> & dropDownOptions, float width , float height){
-    setup(param,width,height);
+ofxDropdown_<T>::ofxDropdown_(ofParameter<T> param, const std::vector<T> & dropDownOptions, int scrollRate, float width , float height){
+    setup(param,scrollRate,width,height);
     add(dropDownOptions);
 }
 template<class T>
-ofxDropdown_<T>::ofxDropdown_(std::string name, float width, float height){
-    setup(name, width, height);
+ofxDropdown_<T>::ofxDropdown_(std::string name, int scrollRate, float width, float height){
+    setup(name, scrollRate, width, height);
 }
 
 template<class T>
@@ -41,7 +41,7 @@ ofxDropdown_<T>::~ofxDropdown_(){
 
 //--------------------------------------------------------------
 template<class T>
-ofxDropdown_<T> * ofxDropdown_<T>::setup(std::string name, float width , float height ){
+ofxDropdown_<T> * ofxDropdown_<T>::setup(std::string name, int scrollRate, float width , float height){
 #ifdef USE_OFX_GUI_TOOLTIP
         guiElement = this;
 #endif
@@ -49,6 +49,8 @@ ofxDropdown_<T> * ofxDropdown_<T>::setup(std::string name, float width , float h
         ofLogWarning("ofxDropdown_<T>::setup" ) << "Dropdown \"" << name << "\" is already setup. Nothing will be done";
         return this;
     }
+
+    scrollSpeed = scrollRate;
         
 	ofxDropdownOption::setup(name, false , width, height);
 	buttonListener = value.newListener(this,&ofxDropdown_::buttonClicked);
@@ -77,7 +79,7 @@ ofxDropdown_<T> * ofxDropdown_<T>::setup(std::string name, float width , float h
     
     
     updateSelectedValue();
-
+	
     bIsSetup = true;
     
 	return this;
@@ -85,13 +87,13 @@ ofxDropdown_<T> * ofxDropdown_<T>::setup(std::string name, float width , float h
 
 //--------------------------------------------------------------
 template<class T>
-ofxDropdown_<T> * ofxDropdown_<T>::setup(ofParameter<T> param, float width, float height){
+ofxDropdown_<T> * ofxDropdown_<T>::setup(ofParameter<T> param, int scrollRate, float width, float height){
     if (bIsSetup){
         ofLogWarning("ofxDropdown_<T>::setup" ) << "Dropdown \"" << param.getName() << "\" is already setup. Nothing will be done";
         return this;
     }
 	selectedValue.makeReferenceTo(param);
-	return setup(param.getName(), width, height);
+	return setup(param.getName(), scrollRate, width, height);
 }
 
 //--------------------------------------------------------------
@@ -590,7 +592,7 @@ template<class T>
 bool ofxDropdown_<T>::scrollGroup(ofMouseEventArgs& args){
     if(isShowingDropdown()){
         if( !group.isMinimized() && group.getShape().inside(args.x, args.y)){
-            move({0, args.scrollY * 2, 0});
+            move({0, args.scrollY * scrollSpeed, 0});
             return true;
         }else{
             group.mouseScrolled(args);
