@@ -416,6 +416,10 @@ public:
     ///\returns an ofxDropdownOption pointer
     ofxDropdownOption* getOptionByIndex(const size_t& index);
 
+    ///\brief Returns the index of the currently selected option. MIGHT NOT PLAY NICE WITH NESTED DROPDOWNS, NOT TESTED.
+    ///\return int with the index of the currently selected option. Returns -1 if not found or selected.
+    int getSelectedOptionIndex ( ) const;
+
     ///\brief returns all the selected values when multiselection is enabled
     ///\return a vector with all the selected values
     const vector<T>&  getAllSelected();

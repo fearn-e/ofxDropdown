@@ -1250,6 +1250,16 @@ ofxDropdownOption* ofxDropdown_<T>::getOptionByIndex(const size_t& index){
 
 //--------------------------------------------------------------
 template<class T>
+int ofxDropdown_<T>::getSelectedOptionIndex() const {
+    auto it = find(values.begin(), values.end(), selectedValue.get());
+    if(it != values.end()){
+        return std::distance(values.begin(), it);
+    }
+    return -1;
+}
+
+//--------------------------------------------------------------
+template<class T>
 const vector<T> & ofxDropdown_<T>::getAllSelected(){
     return allSelectedValues;
 }
