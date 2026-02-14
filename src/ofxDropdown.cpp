@@ -586,6 +586,9 @@ void ofxDropdown_<T>::deselect()
 		if(c) c->deselect();
 	}
 	selectedOption = "";
+    //selectedValue.setWithoutEventNotifications ( T ( ) );
+    //selectedValue = T ( );
+    //allSelectedValues.clear();
 	ofxDropdownOption::deselect();
 }
 //--------------------------------------------------------------
