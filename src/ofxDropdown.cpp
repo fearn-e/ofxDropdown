@@ -440,6 +440,7 @@ void ofxDropdown_<T>::clear(){
 	group.clear();
     for(size_t i = 0; i < groupParams.size(); i++){
         groupParams.remove(i);
+        i--;
     }
     group.setup(groupParams);
 	childDropdowns.clear();
